@@ -14,7 +14,7 @@ from itertools import product
 from typing import Dict, List, Optional, Any
 
 # Configuration
-START_BDNS = 725634
+START_BDNS = 747573
 MAX_CONSECUTIVE_404 = 10
 DATA_DIR = Path("data")  # Relative path to data directory
 API_URL = "https://www.pap.hacienda.gob.es/bdnstrans/api/convocatorias"
