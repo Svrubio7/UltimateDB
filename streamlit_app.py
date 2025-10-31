@@ -132,6 +132,10 @@ def apply_filters(df: pd.DataFrame, filters: dict) -> pd.DataFrame:
     if filters.get('sectores'):
         filtered_df = filtered_df[filtered_df['sector_descripcion'].isin(filters['sectores'])]
     
+    # Beneficiario filter
+    if filters.get('beneficiarios'):
+        filtered_df = filtered_df[filtered_df['tipoBeneficiario_descripcion'].isin(filters['beneficiarios'])]
+    
     # Tipo Convocatoria filter
     if filters.get('tipo_convocatoria'):
         filtered_df = filtered_df[filtered_df['tipoConvocatoria'].isin(filters['tipo_convocatoria'])]
@@ -295,6 +299,13 @@ def main():
             options=sector_options
         )
         
+        # Beneficiario filter
+        beneficiario_options = get_unique_values(df, 'tipoBeneficiario_descripcion')
+        filters['beneficiarios'] = st.sidebar.multiselect(
+            "Beneficiario",
+            options=beneficiario_options
+        )
+        
         # Tipo Convocatoria filter
         tipo_options = get_unique_values(df, 'tipoConvocatoria')
         filters['tipo_convocatoria'] = st.sidebar.multiselect(
@@ -342,7 +353,8 @@ def main():
             display_columns = [
                 'codigoBDNS', 'fechaRecepcion', 'descripcion', 'presupuestoTotal',
                 'organo_nivel1', 'region_descripcion', 'sector_descripcion',
-                'tipoConvocatoria', 'abierto', 'fechaInicioSolicitud', 'fechaFinSolicitud'
+                'tipoBeneficiario_descripcion', 'tipoConvocatoria', 'abierto', 
+                'fechaInicioSolicitud', 'fechaFinSolicitud'
             ]
             
             # Filter only existing columns
@@ -369,6 +381,7 @@ def main():
                 'organo_nivel1': 'Institución',
                 'region_descripcion': 'Región',
                 'sector_descripcion': 'Sector',
+                'tipoBeneficiario_descripcion': 'Beneficiario',
                 'tipoConvocatoria': 'Tipo',
                 'abierto': 'Estado',
                 'fechaInicioSolicitud': 'Inicio Solicitud',
