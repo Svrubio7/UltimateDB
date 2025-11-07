@@ -14,7 +14,7 @@ from itertools import product
 from typing import Dict, List, Optional, Any
 
 # Configuration
-START_BDNS = 858327
+START_BDNS = 699999
 MAX_CONSECUTIVE_404 = 10
 DATA_DIR = Path("data")  # Relative path to data directory
 API_URL = "https://www.pap.hacienda.gob.es/bdnstrans/api/convocatorias"
@@ -227,7 +227,7 @@ class BDNSScraper:
                                 self.save_to_parquet(year)
                 
                 # Move to next BDNS number
-                self.current_bdns += 1
+                self.current_bdns -= 1
                 
                 # Optional delay
                 if USE_DELAY and data:
